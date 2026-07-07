@@ -72,22 +72,6 @@ bash scripts/check-doc-drift.sh firmware/ CLAUDE.md
 bash scripts/ci_local.sh firmware/ CLAUDE.md
 ```
 
-## Comparison / 对比 OpenWiki
-
-| | EmbedSpec | OpenWiki |
-|---|----------|----------|
-| 定位 | 嵌入式项目完整地基 | 通用代码文档生成 |
-| 硬件感知 | STM32/ESP32 预设 | 无 |
-| 确定性 | 100%（bash脚本，零幻觉） | ~90%（LLM语义理解） |
-| 开发流程 | FEAT 5阶段 + 12条验收 | 无 |
-| Bug/故障体系 | 模板 + 故障库 + CI自动检索 | 无 |
-| 调试工具链 | CodeGraph→OpenOCD→GDB + 一键脚本 | 无 |
-| CI 集成 | 编译→规范→漂移 四道门禁 | 文档更新CI |
-| API依赖 | 零 | LLM API按次付费 |
-| 可移植性 | STM32/ESP32，其他手动 | 任何语言/框架 |
-
-OpenWiki 管"怎么写文档"，EmbedSpec 管"怎么建嵌入式项目地基"。互补，不替代。
-
 ## License
 
 MIT
