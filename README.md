@@ -62,6 +62,10 @@ cp -r embedspec/{CLAUDE.md,.claude,.skills,scripts,docs,firmware} your-project/
 
 零依赖。需要 `bash` + 标准 Unix 工具（macOS/Linux/WSL/MSYS2 自带）。
 
+### Non-STM32/ESP32 chips / 其他芯片
+
+核心功能（DOC-STATE校验、CI门禁、FEAT模板、Bug体系、R0-R20规则）**不受影响**。只需改 3 个工具链文件：`openocd.cfg`、`flash.sh`、`debug.sh`。详见 CLAUDE.md 末尾适配检查清单。
+
 ## Quick Start / 快速开始
 
 ```bash
