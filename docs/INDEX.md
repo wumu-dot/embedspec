@@ -15,13 +15,14 @@
 | Bug登记 | `docs/bugs/.template.md` |
 | 历史故障查询 | `docs/troubleshooting/bug_shturl` |
 | 经验教训提炼 | `docs/summary/lessons_summary.md` |
-| 功能开发索引进度 | `docs/features/INDEX.md` |
+| 搭建开发环境 | `docs/tools/dev-setup.md`（CodeGraph + Ponytail + OpenCLI） |
 
 ## 文档清单
 
 | 文件 | 摘要 |
 |------|------|
 | `tools/gdb_debug.md` | CodeGraph → OpenOCD → GDB 硬件调试教程 |
+| `tools/dev-setup.md` | 开发环境搭建指南（CodeGraph + Ponytail + OpenCLI） |
 | `tools/skills.md` | `/flash` `/debug` `/check` `/style` 技能速查 |
 | `features/.template.md` | FEAT 5阶段开发模板（准备→设计→实现→测试→审查） |
 | `features/INDEX.md` | 功能开发索引进度 |
