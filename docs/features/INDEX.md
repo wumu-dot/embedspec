@@ -1,7 +1,7 @@
 # 功能开发索引（FEAT INDEX）
 
 > 维护规则：父FEAT 用 `.template-parent.md` 创建（统筹规划+项目表）；子FEAT 用 `.template-child.md` 创建（5阶段实现）。
-> 子FEAT 阶段5通过后：回填父FEAT项目表该行 + 更新本表子行。
+> 子FEAT 阶段5通过后：回填父FEAT项目表该行 + 更新本表子行 + 更新 `docs/features/维护地图.md`。
 > 父行状态由子行推导（见推导规则）；修改 docs 后同步本表对应行（状态/耗时/文件链接）。
 
 ## 状态图例
