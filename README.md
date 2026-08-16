@@ -21,7 +21,10 @@ embedspec/
 │   └── check-doc-drift.sh        # DOC-STATE vs 源码一致性校验
 ├── docs/
 │   ├── INDEX.md                  # 场景检索地图
-│   ├── features/.template.md     # FEAT 5阶段开发（准备→设计→实现→测试→审查）
+│   ├── features/.template-parent.md # 父FEAT统筹（方向+项目表+DoD）
+│   ├── features/.template-child.md  # 子FEAT实现（5阶段+AC+回填）
+│   ├── features/INDEX.md            # 两级FEAT索引
+│   └── features/examples/           # 演示示例（复制后删除）
 │   ├── bugs/.template.md         # Bug登记模板
 │   ├── summary/lessons_summary.md
 │   ├── tools/gdb_debug.md        # CodeGraph→OpenOCD→GDB 调试流程
@@ -44,6 +47,8 @@ FEAT目标 → 阶段1准备(Dev)→⏸️ → 阶段2设计(Dev)→⏸️ → �
 - 阶段1 地基触碰自检：涉及 Core/Drivers/lvgl → 暂停
 - R0-R20 硬规则全链路约束
 - 12 条验收标准（AC-01~AC-12），Review 逐条打勾
+- 两级 FEAT：父FEAT（A1/A2…）统筹规划 + 项目表；子FEAT（A1-01…）逐个走5阶段
+- 子FEAT 阶段5通过 → 回填父项目表 + INDEX；全部 🟢 → 父FEAT 完成
 
 ## Why / 为什么
 
@@ -69,10 +74,10 @@ cp -r embedspec/{CLAUDE.md,.claude,.skills,scripts,docs,firmware} your-project/
 ## Quick Start / 快速开始
 
 ```bash
-# 1. 编辑 CLAUDE.md 首行 DOC-STATE
+# 1. 编辑 CLAUDE.md 首行 DOC-STATE（填写实际芯片/RTOS/构建参数）
 # 2. 替换模板中的 {{PLACEHOLDER}}（芯片预设自动填入绝大部分）
-# 3. 运行校验
-bash scripts/check-doc-drift.sh firmware/ CLAUDE.md
+# 3. 运行校验，漂移自动修复
+bash scripts/check-doc-drift.sh firmware/ CLAUDE.md --fix
 bash scripts/ci_local.sh firmware/ CLAUDE.md
 ```
 

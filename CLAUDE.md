@@ -1,4 +1,5 @@
 # 项目全局上下文（会话自动继承）
+<!-- DOC-STATE: CHIP={{CHIP_MODEL}}, RTOS={{RTOS_NAME}}_{{RTOS_VERSION}}, BUILD={{BUILD_SYSTEM}}+{{TOOLCHAIN}}, TASKS={{TASK_COUNT}}, HSE={{HSE_VALUE}}, MIN_STACK={{MIN_STACK}} -->
 <!-- 新项目初始化时填写实际芯片/RTOS/构建参数，不确定则留空并询问 -->
 
 ## 硬件平台
@@ -21,6 +22,8 @@ RTOS：{{RTOS_NAME}} {{RTOS_VERSION}} 抢占式，共 {{TASK_COUNT}} 个业务�
 | {{SCENE_3_TRIGGER}} | {{SCENE_3_FILE}} |
 | 编译或烧录失败 | `scripts/ci_local.sh` |
 | 搭建开发环境 | `docs/tools/dev-setup.md`（CodeGraph + Ponytail + OpenCLI） |
+| 规划功能方向（开父FEAT） | `docs/features/.template-parent.md` |
+| 实现具体功能（开子FEAT） | `docs/features/.template-child.md` |
 
 ## 开发硬性边界
 1. {{BOUNDARY_1}}
