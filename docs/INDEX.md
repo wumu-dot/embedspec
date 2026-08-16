@@ -13,6 +13,7 @@
 | 编译构建报错 | `docs/tools/skills.md` → `/check` |
 | 规划功能方向（父FEAT） | `docs/features/.template-parent.md` |
 | 实现具体功能（子FEAT，5阶段） | `docs/features/.template-child.md` |
+| 出问题快速定位 | `docs/features/维护地图.md`（文件→FEAT反查） |
 | Bug登记 | `docs/bugs/.template.md` |
 | 历史故障查询 | `docs/troubleshooting/bug_shturl` |
 | 经验教训提炼 | `docs/summary/lessons_summary.md` |
@@ -28,6 +29,7 @@
 | `features/.template-parent.md` | 父FEAT统筹模板（方向+项目表+依赖+DoD） |
 | `features/.template-child.md` | 子FEAT实现模板（5阶段+12AC+回填） |
 | `features/examples/` | 两级体系演示示例（复制后删除） |
+| `features/维护地图.md` | 文件→FEAT 反查定位（维护与调试入口） |
 | `features/INDEX.md` | 两级FEAT索引进度 |
 | `bugs/.template.md` | Bug 登记模板 |
 | `summary/lessons_summary.md` | 从故障记录提炼的通用规范 |

@@ -24,6 +24,7 @@ RTOS：{{RTOS_NAME}} {{RTOS_VERSION}} 抢占式，共 {{TASK_COUNT}} 个业务�
 | 搭建开发环境 | `docs/tools/dev-setup.md`（CodeGraph + Ponytail + OpenCLI） |
 | 规划功能方向（开父FEAT） | `docs/features/.template-parent.md` |
 | 实现具体功能（开子FEAT） | `docs/features/.template-child.md` |
+| 出问题快速定位（文件→FEAT反查） | `docs/features/维护地图.md` |
 
 ## 开发硬性边界
 1. {{BOUNDARY_1}}
