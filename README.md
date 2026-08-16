@@ -25,7 +25,7 @@ embedspec/
 │   ├── features/.template-child.md  # 子FEAT实现（5阶段+12AC+回填）
 │   ├── features/INDEX.md            # 两级FEAT索引
 │   ├── features/examples/           # 演示示例（复制后删除）
-│   ├── features/维护地图.md             # 文件→FEAT 反查（问题定位）
+│   ├── features/维护地图.md         # 文件→FEAT 反查（问题定位）
 │   ├── bugs/.template.md            # Bug登记模板
 │   ├── summary/lessons_summary.md
 │   ├── tools/gdb_debug.md           # CodeGraph→OpenOCD→GDB 调试流程
