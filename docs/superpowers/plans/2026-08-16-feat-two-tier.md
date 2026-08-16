@@ -589,3 +589,85 @@ Expected: 仅本计划涉及文件 + 用户原有未提交改动（CLAUDE.md/REA
 - **Spec 覆盖**：D1(文件组织)→Task1/2；D2(命名)→Task2标题；D3(子FEAT 5阶段)→Task2保留原模板；D4(方案A)→Task1/2；D5(项目无关)→Task1/6；D6(示例)→Task4；D7(大阶段不建文档)→无任务（设计决定）；D8(父行推导)→Task3；D9(生命周期)→Task4演示；AI约束9.1-9.5→Task1父模板AI规则、Task2回填规则、Task4示例体现；引用更新→Task5；验收标准→Task6。
 - **占位符扫描**：所有代码块为完整文件内容，无 TBD/TODO。
 - **类型一致性**：文件名、编号（FEAT-A1-01）、路径在全部任务中一致。
+
+---
+
+# v1.1 扩展：维护与快速定位（Task 7-11）
+
+> 依据：spec 第 12 节（2026-08-16 批准）。机制：FEAT 维护卡片 + 反向索引维护地图。
+
+### Task 7: 子模板加「维护与调试」章节
+
+**Files:**
+- Modify: `docs/features/.template-child.md`
+
+- [ ] **Step 1**: 在「3. 验收标准」末尾（12 条 AC 之后）插入新章节：
+```markdown
+## 4. 维护与调试（阶段5通过后回填）
+
+### 4.1 影响文件
+| 文件 | 改动类型 | 说明 |
+|------|---------|------|
+| {{路径}} | 新增/修改 | {{改动内容}} |
+
+### 4.2 调试要点
+- {{调试手段：GDB断点 / 日志开关 / /debug 技能 / 验证命令}}
+
+### 4.3 测试入口
+- {{测试命令或用例位置，对应 AC-XX}}
+```
+并将原「## 4. 执行日志」改为「## 5. 执行日志」。
+
+- [ ] **Step 2**: 顶部 AI 执行规则回填行改为：
+`> 阶段5通过后：回填父FEAT项目表该行（独立功能跳过）+ 更新 `docs/features/INDEX.md` + `docs/features/维护地图.md`。`
+
+- [ ] **Step 3**: 阶段5 中"若全部通过"行改为：
+`- 若全部通过 → ✅ 完成，回填「维护与调试」章节 + 父FEAT项目表（如有）+ 更新 `docs/features/INDEX.md` + `docs/features/维护地图.md``
+
+- [ ] **Step 4**: 校验（grep 维护地图 ≥3 处；禁词无输出）→ 提交 `docs: add maintenance & debug section to child template`
+
+### Task 8: 新建维护地图 + features/INDEX 规则
+
+**Files:**
+- Create: `docs/features/维护地图.md`
+- Modify: `docs/features/INDEX.md`（维护规则补一句）
+
+- [ ] **Step 1**: 创建 `docs/features/维护地图.md`（内容见 spec 12.3，含用法说明+表头+1行示例）
+- [ ] **Step 2**: `docs/features/INDEX.md` 维护规则第 2 行改为：
+`> 子FEAT 阶段5通过后：回填父FEAT项目表该行 + 更新本表子行 + 更新 `docs/features/维护地图.md`。`
+- [ ] **Step 3**: 校验项目无关性 → 提交 `docs: add maintenance map (file->FEAT reverse lookup)`
+
+### Task 9: 引用同步（CLAUDE.md / docs/INDEX.md / README.md）
+
+- [ ] **Step 1**: `CLAUDE.md` 场景导航表加一行：
+`| 出问题快速定位（文件→FEAT反查） | `docs/features/维护地图.md` |`
+- [ ] **Step 2**: `docs/INDEX.md` 场景检索地图加一行：
+`| 出问题快速定位 | `docs/features/维护地图.md`（文件→FEAT反查） |`
+  文档清单加一行：`| `features/维护地图.md` | 文件→FEAT 反查定位（维护与调试入口） |`
+- [ ] **Step 3**: `README.md` 目录树 features/ 子树加一行（注释列对齐）：
+`│   ├── features/维护地图.md          # 文件→FEAT 反查（问题定位）`
+- [ ] **Step 4**: 提交 `docs: sync maintenance map references`
+
+### Task 10: examples 演示
+
+**Files:**
+- Modify: `docs/features/examples/FEAT-A1-01-接线验证.md`
+- Modify: `docs/features/维护地图.md`（示例行）
+
+- [ ] **Step 1**: A1-01 子文件「3. 验收标准」后插入演示版「4. 维护与调试」（4.1 影响文件：接线测试代码；4.2 调试要点：逻辑分析仪时序抓取 + /debug；4.3 测试入口：ci_local.sh + 接线自检用例），原「4. 执行日志」改 5
+- [ ] **Step 2**: 维护地图示例行补 A1-01 演示条目
+- [ ] **Step 3**: 提交 `docs: demo maintenance card in examples and maintenance map`
+
+### Task 11: 终检
+
+- [ ] 模板+维护地图+INDEX 禁词扫描无输出（examples 除外）
+- [ ] 旧引用扫描无残留
+- [ ] 结构核对（维护地图存在、子模板 5 章节编号连续）
+- [ ] git status 仅剩用户 scripts 改动
+- [ ] 修复遗留则提交
+
+## v1.1 自审记录
+
+- **Spec 覆盖**：12.1→Task7；12.2→Task7；12.3→Task8；12.4→Task9(场景导航)；12.5→Task8/9/10；12.6→Task10/11。
+- **占位符扫描**：无 TBD。
+- **类型一致性**：维护地图路径、章节编号（4 维护与调试 / 5 执行日志）跨任务一致。
