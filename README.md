@@ -20,15 +20,15 @@ embedspec/
 │   ├── ci_local.sh               # 编译→故障匹配→规范检查→文档漂移
 │   └── check-doc-drift.sh        # DOC-STATE vs 源码一致性校验
 ├── docs/
-│   ├── INDEX.md                  # 场景检索地图
-│   ├── features/.template-parent.md # 父FEAT统筹（方向+项目表+DoD）
-│   ├── features/.template-child.md  # 子FEAT实现（5阶段+AC+回填）
+│   ├── INDEX.md                     # 场景检索地图
+│   ├── features/.template-parent.md # 父FEAT统筹（方向+项目表+依赖+DoD）
+│   ├── features/.template-child.md  # 子FEAT实现（5阶段+12AC+回填）
 │   ├── features/INDEX.md            # 两级FEAT索引
-│   └── features/examples/           # 演示示例（复制后删除）
-│   ├── bugs/.template.md         # Bug登记模板
+│   ├── features/examples/           # 演示示例（复制后删除）
+│   ├── bugs/.template.md            # Bug登记模板
 │   ├── summary/lessons_summary.md
-│   ├── tools/gdb_debug.md        # CodeGraph→OpenOCD→GDB 调试流程
-│   ├── tools/skills.md           # /flash /debug /check /style 技能表
+│   ├── tools/gdb_debug.md           # CodeGraph→OpenOCD→GDB 调试流程
+│   ├── tools/skills.md              # /flash /debug /check /style 技能表
 │   └── troubleshooting/bug_shturl
 └── firmware/
     ├── .gdbinit                  # GDB初始化配置

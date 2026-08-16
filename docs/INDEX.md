@@ -25,9 +25,9 @@
 | `tools/gdb_debug.md` | CodeGraph → OpenOCD → GDB 硬件调试教程 |
 | `tools/dev-setup.md` | 开发环境搭建指南（CodeGraph + Ponytail + OpenCLI） |
 | `tools/skills.md` | `/flash` `/debug` `/check` `/style` 技能速查 |
-| features/.template-parent.md | 父FEAT统筹模板（方向+项目表+依赖+DoD） |
-| features/.template-child.md | 子FEAT实现模板（5阶段+12AC+回填） |
-| features/examples/ | 两级体系演示示例（复制后删除） |
+| `features/.template-parent.md` | 父FEAT统筹模板（方向+项目表+依赖+DoD） |
+| `features/.template-child.md` | 子FEAT实现模板（5阶段+12AC+回填） |
+| `features/examples/` | 两级体系演示示例（复制后删除） |
 | features/INDEX.md | 两级FEAT索引进度 |
 | `bugs/.template.md` | Bug 登记模板 |
 | `summary/lessons_summary.md` | 从故障记录提炼的通用规范 |
