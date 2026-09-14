@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # 嵌入式项目本地CI门禁：编译→故障匹配→规范检查→文档漂移
 # 用法: bash scripts/ci_local.sh [源码目录] [CLAUDE.md]
 set -eu
@@ -66,5 +66,6 @@ bash scripts/check-doc-drift.sh "$SRC_DIR" "$DOC_FILE" || { echo "❌ 请更新 
 
 echo "📋 FEAT 文档门禁"
 bash scripts/check-feat-docs.sh || { echo "❌ FEAT 文档门禁失败"; exit 1; }
+bash scripts/check_three_source.sh || { echo "❌ R27 三源门禁失败"; exit 1; }
 
 echo "✅ 全量CI通过"
