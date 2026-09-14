@@ -11,14 +11,17 @@
 ```
 embedspec/
 ├── CLAUDE.md                     # 芯片预设模板（STM32/ESP32自动填入）
-├── .claude/rules.md              # R0-R20 AI硬规则
+├── .claude/rules.md              # R0-R32 AI硬规则
 ├── .skills/
 │   ├── flash.sh                  # 一键编译+烧录
 │   ├── debug.sh                  # 一键OpenOCD+GDB调试
 │   └── check_style.sh            # cppcheck静态检查
 ├── scripts/
 │   ├── ci_local.sh               # 编译→故障匹配→规范检查→文档漂移
-│   └── check-doc-drift.sh        # DOC-STATE vs 源码一致性校验
+│   ├── check-doc-drift.sh        # DOC-STATE vs 源码一致性校验
+│   ├── check-feat-docs.sh        # FEAT 文档门禁
+│   ├── check_three_source.sh     # R27 三源门禁（HEAD基准，拦新API无证据）
+│   └── smoke_test.sh             # 回归护栏：gate 脚本行为断言
 ├── docs/
 │   ├── INDEX.md                     # 场景检索地图
 │   ├── features/.template-parent.md # 父FEAT统筹（方向+项目表+依赖+DoD）
@@ -46,7 +49,7 @@ FEAT目标 → 阶段1准备(Dev)→⏸️ → 阶段2设计(Dev)→⏸️ → �
 
 - 每阶段结束停等，人确认后才推进
 - 阶段1 地基触碰自检：涉及 Core/Drivers/lvgl → 暂停
-- R0-R20 硬规则全链路约束
+- R0-R32 硬规则全链路约束
 - 12 条验收标准（AC-01~AC-12），Review 逐条打勾
 - 两级 FEAT：父FEAT（A1/A2…）统筹规划 + 项目表；子FEAT（A1-01…）逐个走5阶段
 - 子FEAT 阶段5通过 → 回填父项目表 + INDEX；全部 🟢 → 父FEAT 完成
@@ -70,7 +73,7 @@ cp -r embedspec/{CLAUDE.md,.claude,.skills,scripts,docs,firmware} your-project/
 
 ### Non-STM32/ESP32 chips / 其他芯片
 
-核心功能（DOC-STATE校验、CI门禁、FEAT模板、Bug体系、R0-R20规则）**不受影响**。只需改 3 个工具链文件：`openocd.cfg`、`flash.sh`、`debug.sh`。详见 CLAUDE.md 末尾适配检查清单。
+核心功能（DOC-STATE校验、CI门禁、FEAT模板、Bug体系、R0-R32规则）**不受影响**。只需改 3 个工具链文件：`openocd.cfg`、`flash.sh`、`debug.sh`。详见 CLAUDE.md 末尾适配检查清单。
 
 ## Quick Start / 快速开始
 

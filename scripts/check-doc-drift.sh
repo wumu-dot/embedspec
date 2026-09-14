@@ -57,13 +57,13 @@ detect_chip() {
     fi
 
     # 3. HAL 库兜底
-    if find "$SRC_DIR" -name "stm32f4xx_hal.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1 > /dev/null; then
+    if [ -n "$(find "$SRC_DIR" -name "stm32f4xx_hal.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1)" ]; then
         echo "STM32F4"; return
     fi
-    if find "$SRC_DIR" -name "stm32f1xx_hal.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1 > /dev/null; then
+    if [ -n "$(find "$SRC_DIR" -name "stm32f1xx_hal.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1)" ]; then
         echo "STM32F1"; return
     fi
-    if find "$SRC_DIR" -name "stm32*.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1 > /dev/null; then
+    if [ -n "$(find "$SRC_DIR" -name "stm32*.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1)" ]; then
         echo "STM32"; return
     fi
 
@@ -71,7 +71,7 @@ detect_chip() {
 }
 
 detect_rtos() {
-    if find "$SRC_DIR" -name "FreeRTOSConfig.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1 > /dev/null; then
+    if [ -n "$(find "$SRC_DIR" -name "FreeRTOSConfig.h" 2>/dev/null | grep -vE "$SKIP_DIRS" | head -1)" ]; then
         echo "FreeRTOS/CMSIS-RTOS_v2"
     else
         echo "None"
@@ -175,11 +175,31 @@ compare() {
     fi
 
     local d="${doc_val// /}" s="${src_val// /}"
+    local m
+    # P1-2: 数值字段（业务任务数/HSE_VALUE/最小堆栈）用整数等值比较，避免子串漏检
+    #        （如 HSE 8000000 vs 80000000、任务数 2 vs 12 本应视为漂移）。
+    #        数值字段直接进入等值比较：相等→ok；不等→die + 回填源码值，绝不落入子串匹配。
+    case "$label" in
+        业务任务数|HSE_VALUE|最小堆栈)
+            if [ -n "$d" ] && [ -n "$s" ] &&
+               [[ "$d" =~ ^[0-9]+$ ]] && [[ "$s" =~ ^[0-9]+$ ]]; then
+                if [ "$((10#$d))" -eq "$((10#$s))" ]; then
+                    ok "$label: 文档=$doc_val  源码=$src_val"
+                else
+                    die "$label: 文档=$doc_val  源码=$src_val"
+                    printf -v "$field_var" '%s' "$src_val"
+                fi
+                return
+            fi
+            ;;
+    esac
+
+    # 非数值字段（CHIP/RTOS/BUILD）：保留子串匹配
     if [[ "$d" == *"$s"* ]] || [[ "$s" == *"$d"* ]]; then
         ok "$label: 文档=$doc_val  源码=$src_val"
     else
         die "$label: 文档=$doc_val  源码=$src_val"
-        eval "$field_var=\"$src_val\""
+        printf -v "$field_var" '%s' "$src_val"
     fi
 }
 
@@ -203,9 +223,14 @@ fi
 if [ "$FIX_MODE" -eq 1 ]; then
     NEW_STATE="CHIP=$FINAL_CHIP, RTOS=$FINAL_RTOS, BUILD=$FINAL_BUILD, TASKS=$FINAL_TASKS, HSE=$FINAL_HSE, MIN_STACK=$FINAL_MIN_STACK"
     if grep -q "<!-- DOC-STATE:" "$DOC_FILE"; then
-        sed -i "s|<!-- DOC-STATE: [^>]* -->|<!-- DOC-STATE: $NEW_STATE -->|" "$DOC_FILE"
+        tmp=$(mktemp)
+        sed "s|<!-- DOC-STATE: [^>]* -->|<!-- DOC-STATE: $NEW_STATE -->|" "$DOC_FILE" > "$tmp"
+        mv "$tmp" "$DOC_FILE"
     else
-        sed -i "1a<!-- DOC-STATE: $NEW_STATE -->" "$DOC_FILE"
+        tmp=$(mktemp)
+        printf '<!-- DOC-STATE: %s -->\n' "$NEW_STATE" > "$tmp"
+        cat "$DOC_FILE" >> "$tmp"
+        mv "$tmp" "$DOC_FILE"
     fi
     fix "DOC-STATE 已自动修复"
     echo -e "  旧: ${RED}$DOC_STATE${RESET}"
